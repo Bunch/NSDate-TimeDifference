@@ -43,7 +43,7 @@
         return [self localizedStringForKey:@"just now"];
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSWeekCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    NSUInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
     NSDateComponents *components = [calendar components:unitFlags fromDate:[NSDate date] toDate:self options:0];
     
     int year = [[components valueForKey:@"year"]integerValue];    
@@ -66,15 +66,16 @@
     if(month < -1) 
         return [NSString stringWithFormat:[self localizedStringForKey:@"%d months ago"], abs(month)];
 
-    int week = [[components valueForKey:@"week"]integerValue];    
-    if(week > 1) 
-        return [NSString stringWithFormat:[self localizedStringForKey:@"%d weeks later"], abs(week)];
-    if(week == 1)
-        return [self localizedStringForKey:@"1 week later"];
-    if(week == -1)
-        return [self localizedStringForKey:@"1 week ago"];
-    if(week < -1) 
-        return [NSString stringWithFormat:[self localizedStringForKey:@"%d weeks ago"], abs(week)];
+    // ignore weeks
+//    int week = [[components valueForKey:@"week"]integerValue];    
+//    if(week > 1) 
+//        return [NSString stringWithFormat:[self localizedStringForKey:@"%d weeks later"], abs(week)];
+//    if(week == 1)
+//        return [self localizedStringForKey:@"1 week later"];
+//    if(week == -1)
+//        return [self localizedStringForKey:@"1 week ago"];
+//    if(week < -1) 
+//        return [NSString stringWithFormat:[self localizedStringForKey:@"%d weeks ago"], abs(week)];
 
     int day = [[components valueForKey:@"day"]integerValue];    
     if(day > 1) 
@@ -105,18 +106,20 @@
         return [self localizedStringForKey:@"1 minute ago"];
     if(minute < -1) 
         return [NSString stringWithFormat:[self localizedStringForKey:@"%d minutes ago"], abs(minute)];
+    
+    // ignore seconds
+//    int second = [[components valueForKey:@"second"]integerValue];
+//    if(second > 1)
+//        return [NSString stringWithFormat:[self localizedStringForKey:@"%d seconds later"], abs(second)];
+//    if(second == 1)
+//        return [self localizedStringForKey:@"1 second later"];
+//    if(second == -1)
+//        return [self localizedStringForKey:@"1 second ago"];
+//    if(second < -1) 
+//        return [NSString stringWithFormat:[self localizedStringForKey:@"%d seconds ago"], abs(second)];
+    return [self localizedStringForKey:@"just now"];
 
-    int second = [[components valueForKey:@"second"]integerValue];    
-    if(second > 1) 
-        return [NSString stringWithFormat:[self localizedStringForKey:@"%d seconds later"], abs(second)];
-    if(second == 1)
-        return [self localizedStringForKey:@"1 second later"];
-    if(second == -1)
-        return [self localizedStringForKey:@"1 second ago"];
-    if(second < -1) 
-        return [NSString stringWithFormat:[self localizedStringForKey:@"%d seconds ago"], abs(second)];
-
-    return [self description];
+//    return [self description];
 }
 
 @end
